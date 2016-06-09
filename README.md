@@ -4,13 +4,29 @@ Implementing a server side rendering app with **React** + **Redux** + **Koa** + 
 
 ## TODO list
 
-[] setup webpack compilation environment.
+[x] setup webpack compilation environment.
 
   - [x] babel-loader for es6.
 
   - [x] es6 preset, transform ES6 script into browser compatible ES5 script.
 
   - [x] babel stage-0, this [link](http://babeljs.io/docs/plugins/preset-stage-0/) demonstrates what **stage-0** serves.
+
+[x] add koa router.
+
+  - [x] [koa-router](npm install koa-router) repo.
+
+  - [x] [koa-cors](https://github.com/evert0n/koa-cors) repo.
+
+[x] ORM package.
+
+  - [x] Compare **Sequelize** with **Bookshelf**.
+
+  - [x] will choose [bookshelf](http://bookshelfjs.org/) over **Sequelize**. install it!
+
+[x] add frontend script.
+
+[] add webpack-dev-server.
 
 [] host up [koa](http://koajs.com/).
 
@@ -44,16 +60,29 @@ console.log(a.next('from outside'))
 3.
   When execute the **next** `a.next('from outside')`, the execution flow will again be passed into `testGen` function. Thus, **debugger 3** will output `{value: 'from outside', done: true}`
 
-## How to server KOA backend with es6?
+## How to retrieve request object ?
+
+```
+app.use(function * () {
+  console.log(this.request)
+})
+app.listen(8086)
+```
+
+## How to server KOA backend with es6 ?
 
 spins **KOA** with [babel-node](https://babeljs.io/docs/usage/cli/).
 
 ## Production Build
 
+Instead of using **babel node** on production(not suggested), we should prebuild production server script and host with **node** command.
+
 **npm run build**
 
-**npm run serve**
+**npm run server**
 
 ## References
 
 1. [babel node server example](https://github.com/babel/example-node-server)
+
+2. [react + react-router + redux + koa example](http://blog.joanboixados.com/building-a-boilerplate-for-a-koa-redux-react-application-including-webpack-mocha-and-sass/)
