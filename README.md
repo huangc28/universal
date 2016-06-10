@@ -26,7 +26,34 @@ Implementing a server side rendering app with **React** + **Redux** + **Koa** + 
 
 [x] add frontend script.
 
-[] add webpack-dev-server.
+[x] ~~add **webpack-dev-server**.~~ [deprecated](https://medium.com/@dan_abramov/the-death-of-react-hot-loader-765fa791d7c4#.bzedf437z) by Dan Abramov
+
+  - [x] install **webpack-dev-server**.
+
+  - [x] configure webpack configuration.
+
+  - [] add script `npm run start:dev` to start **webpack-dev-server** for front end.
+
+[x] add **react router**.
+
+[x] add **redux**.
+
+  - [x] install **redux**
+
+  - [x] install **react-redux**
+
+  - [x] install **react-thunk**
+
+[] add **mocha** test framework.
+
+  - [] install **mocha**
+
+  - [] install **chai**
+
+  - [] install **chai-immutable**
+
+
+[] add **react hot loader** for development environment.
 
 [] host up [koa](http://koajs.com/).
 
@@ -77,9 +104,27 @@ spins **KOA** with [babel-node](https://babeljs.io/docs/usage/cli/).
 
 Instead of using **babel node** on production(not suggested), we should prebuild production server script and host with **node** command.
 
-**npm run build**
+```
+npm run build
+```
 
-**npm run server**
+```
+npm run server
+```
+
+## Webpack dev server
+
+Before spinning up **webpack-dev-server** please install by prompting:
+
+```
+npm install -g webpack webpack-dev-server
+```
+
+## problems
+
+### KOA needs 'babel-polyfill' !!
+
+when building server side code with **koa** implemented, it needs **babel-polyfill** to accommodate es6 **promise** / **await async**.
 
 ## References
 
