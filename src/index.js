@@ -1,4 +1,4 @@
-import BoilerPlate from './components/boilerplate'
+import BoilerPlate from './components/boilerplate/boilerplate'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
