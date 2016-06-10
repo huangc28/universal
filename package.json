@@ -1,14 +1,16 @@
 {
   "name": "universal",
   "version": "1.0.0",
-  "author": "",
+  "author": "Bryan Huang",
   "description": "nodejs isomorphic package",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon build/server.js --exec babel-node --ignore node_modules",
-    "build": "babel build -d dist",
-    "serve": "node dist/server.js"
+    "test": "mocha --compilers js:babel-core/register --recursive",
+    "devServer": "nodemon api/src/server.js --exec babel-node --ignore node_modules",
+    "buildServer": "babel api/src/server.js -d build",
+    "startServer": "node build/api/src/server.js",
+    "build": "webpack",
+    "start:dev": "webpack-dev-server"
   },
   "license": "ISC",
   "devDependencies": {
@@ -17,17 +19,31 @@
     "babel-loader": "^6.2.4",
     "babel-polyfill": "^6.9.1",
     "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
     "babel-preset-stage-2": "^6.5.0",
+    "chai": "^3.5.0",
+    "chai-immutable": "^1.5.4",
+    "json-loader": "^0.5.4",
     "mocha": "^2.5.3",
+    "nodemon": "^1.9.2",
+    "redux-devtools": "^3.3.1",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
     "knex": "^0.11.5",
     "koa": "^1.2.0",
     "koa-cors": "0.0.16",
     "koa-router": "^5.4.0",
-    "mysql": "^2.11.1"
+    "mysql": "^2.11.1",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.4.1",
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.1.0",
+    "webpack": "^1.13.1"
   }
 }
