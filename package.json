@@ -10,7 +10,7 @@
     "buildServer": "babel api/src/server.js -d build",
     "startServer": "node build/api/src/server.js",
     "build": "webpack",
-    "start:dev": "webpack-dev-server"
+    "dev": "webpack-dev-server"
   },
   "license": "ISC",
   "devDependencies": {
@@ -24,6 +24,7 @@
     "babel-preset-stage-2": "^6.5.0",
     "chai": "^3.5.0",
     "chai-immutable": "^1.5.4",
+    "html-webpack-plugin": "^2.20.0",
     "json-loader": "^0.5.4",
     "mocha": "^2.5.3",
     "nodemon": "^1.9.2",
@@ -32,18 +33,22 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "css-loader": "^0.23.1",
     "isomorphic-fetch": "^2.2.1",
     "knex": "^0.11.5",
     "koa": "^1.2.0",
     "koa-cors": "0.0.16",
     "koa-router": "^5.4.0",
     "mysql": "^2.11.1",
+    "node-sass": "^3.7.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.4.1",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
+    "sass-loader": "^3.2.0",
+    "style-loader": "^0.13.1",
     "webpack": "^1.13.1"
   }
 }
