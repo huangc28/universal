@@ -2,7 +2,7 @@
 
 Implementing a server side rendering app with **React** + **Redux** + **Koa** + **Webpack**.
 
-## TODO list
+## Progress
 
 [x] setup webpack compilation environment.
 
@@ -46,12 +46,23 @@ Implementing a server side rendering app with **React** + **Redux** + **Koa** + 
 
 [] add **mocha** test framework.
 
-  - [] install **mocha**
+  - [x] install **mocha**.
 
-  - [] install **chai**
+  - [x] install **chai**.
 
-  - [] install **chai-immutable**
+  - [x] install **chai-immutable**.
 
+  - [] React testing framework **jsdom** [link](https://github.com/tmpvar/jsdom).
+
+[] add **SASS** loader.
+
+    - [] **sass-loader**. compiles sass into css.
+
+    - [] **node-sass** one of the dependencies of **sass-loader**.
+
+    - [] **css-loader** turns css into js.
+
+    - [] **style-loader** embeds css into our application.
 
 [] add **react hot loader** for development environment.
 
@@ -60,6 +71,15 @@ Implementing a server side rendering app with **React** + **Redux** + **Koa** + 
 [] setup react router for server side rendering.
 
 [] renders React component from server.
+
+## TODO list
+
+[] deprecate Frontend host script, since this is going to be a server side rendering app. All components will be generate from Backend.
+
+```
+"build": "webpack",
+"start:dev": "webpack-dev-server"
+```
 
 ## Generator Pattern
 
@@ -131,3 +151,5 @@ when building server side code with **koa** implemented, it needs **babel-polyfi
 1. [babel node server example](https://github.com/babel/example-node-server)
 
 2. [react + react-router + redux + koa example](http://blog.joanboixados.com/building-a-boilerplate-for-a-koa-redux-react-application-including-webpack-mocha-and-sass/)
+
+3. [about source map](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/)
