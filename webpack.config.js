@@ -27,6 +27,13 @@ module.exports = {
     progress: true
   },
   module: {
+    preLoaders: [
+      {
+        test: /\.(js|jsx)$/,
+        loaders: ['eslint'],
+        include: path.resolve(ROOT_PATH, 'universal')
+      }
+    ],
     loaders: [
       {
         test: /\.(js|jsx)$/,
