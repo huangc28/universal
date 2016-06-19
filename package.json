@@ -6,9 +6,9 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --recursive",
-    "devServer": "nodemon api/src/server.js --exec babel-node --ignore node_modules",
-    "buildServer": "babel api/src/server.js -d build",
-    "startServer": "node build/api/src/server.js",
+    "devServer": "nodemon server/server.js --exec babel-node --ignore node_modules",
+    "buildServer": "babel server/server.js -d build",
+    "startServer": "node build/server/server.js",
     "lint": "eslint . --ext .js --ext .jsx",
     "build": "webpack",
     "dev": "webpack-dev-server"
@@ -39,11 +39,9 @@
   },
   "dependencies": {
     "css-loader": "^0.23.1",
+    "express": "^4.14.0",
     "isomorphic-fetch": "^2.2.1",
     "knex": "^0.11.5",
-    "koa": "^1.2.0",
-    "koa-cors": "0.0.16",
-    "koa-router": "^5.4.0",
     "mysql": "^2.11.1",
     "node-sass": "^3.7.0",
     "react": "^15.1.0",

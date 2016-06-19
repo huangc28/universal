@@ -54,6 +54,8 @@ Implementing a server side rendering app with **React** + **Redux** + **Koa** + 
 
   - [] React testing framework **jsdom** [link](https://github.com/tmpvar/jsdom).
 
+[] change framework from **KOA** to **express**.
+
 [] add **SASS** loader.
 
     - [] **sass-loader**. compiles sass into css.
@@ -106,6 +108,10 @@ console.log(a.next('from outside'))
 
 3.
   When execute the **next** `a.next('from outside')`, the execution flow will again be passed into `testGen` function. Thus, **debugger 3** will output `{value: 'from outside', done: true}`
+
+## How to serve static file in express ?
+
+[document](http://expressjs.com/en/starter/static-files.html)
 
 ## How to retrieve request object ?
 
