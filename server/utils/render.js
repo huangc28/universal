@@ -1,6 +1,5 @@
 export default function renderFullPage (html, initialState) {
-  return `
-    <!doctype html>
+  return `<!doctype html>
     <html>
       <head>
         <title>Universal App</title>
@@ -10,7 +9,7 @@ export default function renderFullPage (html, initialState) {
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
         </script>
-        <script src='build/bundle.js'></script>
+        <script type='application/javascript' src='bundle.js'></script>
       </body>
     </html>
   `

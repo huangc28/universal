@@ -38,7 +38,6 @@ function handleRender (req, res) {
   res.send(renderFullPage(html, initialState))
 }
 
-
 app.listen(3004, () => {
   console.log('listening in port 3004')
 })

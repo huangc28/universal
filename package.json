@@ -6,12 +6,13 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --recursive",
-    "devServer": "nodemon server/server.js --exec babel-node --ignore node_modules",
+    "devServer": "nodemon server/bin/server.js",
     "buildServer": "babel server/server.js -d build",
     "startServer": "node build/server/server.js",
     "lint": "eslint . --ext .js --ext .jsx",
     "build": "webpack",
-    "dev": "webpack-dev-server"
+    "build:watch": "webpack -w",
+    "dev": "node_modules/.bin/webpack-dev-server --progress --color && npm build:watch"
   },
   "license": "ISC",
   "devDependencies": {

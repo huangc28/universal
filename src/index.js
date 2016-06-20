@@ -1,17 +1,8 @@
-import BoilerPlate from './components/boilerplate/boilerplate'
+import App from './containers/App'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
-class App extends Component {
-  render () {
-    return (
-      <div>
-        <BoilerPlate />
-        first universal component
-      </div>
-    )
-  }
-}
+console.log('client side window', window)
 
 ReactDOM.render(
   <App />,

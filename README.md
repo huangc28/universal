@@ -2,6 +2,14 @@
 
 Implementing a server side rendering app with **React** + **Redux** + **Koa** + **Webpack**.
 
+## Server Side Rendering
+
+Server side rendering is difference from pure frontend rendering. As of **dev** environment, dev server is spun up by **webpack-hot-loader** and loads the **webpack** config from **webpack.config.js**, thus, all settings can be specified there. WhereAs in server side rendering, we need to import **webpack** module into the script.
+
+### backend + frontend
+
+spins up both backend server and frontend server.
+
 ## Progress
 
 [x] setup webpack compilation environment.
