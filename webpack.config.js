@@ -1,16 +1,19 @@
-var webpack = require('webpack')
-var path = require('path')
-var HtmlwebpackPlugin = require('html-webpack-plugin')
-var ROOT_PATH = path.resolve(__dirname)
+const webpack = require('webpack')
+const { resolve } = require('path')
+const HtmlwebpackPlugin = require('html-webpack-plugin')
 
+const ROOT_PATH = resolve(__dirname)
+// console.log(resolve(ROOT_PATH, 'build'))
+// console.log('root path', ROOT_PATH)
+// console.log(resolve(ROOT_PATH, 'src/index.js'))
 module.exports = {
   devtool: 'source-map',
   entry: [
-    path.resolve(ROOT_PATH, 'src/index.js')
+    resolve(ROOT_PATH, 'src/index.js')
   ],
   output: {
-    path: './build',
-    publicPath: '/',
+    path: resolve(ROOT_PATH, 'build'),
+    publicPath: '/static/',
     filename: 'bundle.js'
   },
   resolve: {
@@ -19,19 +22,12 @@ module.exports = {
   node: {
     fs: 'empty'
   },
-  devServer: {
-    contentBase: path.resolve(ROOT_PATH, 'build'),
-    historyApiFallback: true,
-    hot: true,
-    inline: true,
-    progress: true
-  },
   module: {
     preLoaders: [
       {
         test: /\.(js|jsx)$/,
         loaders: ['eslint'],
-        include: path.resolve(ROOT_PATH, 'universal')
+        include: resolve(ROOT_PATH, 'universal')
       }
     ],
     loaders: [
@@ -61,7 +57,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlwebpackPlugin({
       title: 'Universal App',
-      template: path.resolve(ROOT_PATH, 'static/index.html')
+      template: resolve(ROOT_PATH, 'static/index.html')
     })
   ]
 }

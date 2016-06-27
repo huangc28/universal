@@ -1,5 +1,6 @@
 import 'babel-polyfill'
-import path from 'path'
+import express from 'express'
+import { resolve } from 'path'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import renderFullPage from './utils/render'
@@ -7,11 +8,21 @@ import { createStore } from 'redux'
 import { Provider }  from 'react-redux'
 import App from '../src/containers/App'
 import reducers from '../src/reducers'
-import express from 'express'
-
+import config from '../webpack.config.js'
+import webpackMiddleware from 'webpack-dev-middleware'
+import webpack from 'webpack'
 const app = express()
+const staticPath = resolve(__dirname, '../..', 'static')
+const compiler = webpack(config)
+const ROOT_PATH = resolve(__dirname)
 
-const staticPath = path.resolve(__dirname, '../..', 'static')
+app.use(webpackMiddleware(compiler, {
+  inline: true,
+  hot: true,
+  contentBase: resolve(ROOT_PATH, 'build'),
+  publicPath: '/static/',
+  stats: {colors: true}
+}))
 
 // serve static files.
 app.use('/static', express.static(staticPath))
