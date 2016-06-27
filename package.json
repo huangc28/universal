@@ -12,7 +12,7 @@
     "lint": "eslint . --ext .js --ext .jsx",
     "build": "webpack",
     "build:watch": "webpack -w",
-    "dev": "node_modules/.bin/webpack-dev-server --progress --color && npm build:watch"
+    "dev": "node_modules/.bin/webpack-dev-server --progress --color && npm build:watch && npm run devServer"
   },
   "license": "ISC",
   "devDependencies": {

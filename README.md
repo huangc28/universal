@@ -84,7 +84,7 @@ spins up both backend server and frontend server.
 
 ## TODO list
 
-[] deprecate Frontend host script, since this is going to be a server side rendering app. All components will be generate from Backend.
+[] deprecate Frontend host script, since this is going to be a server side rendering app. All components will be generated from Backend.
 
 ```
 "build": "webpack",
@@ -153,6 +153,10 @@ Before spinning up **webpack-dev-server** please install by prompting:
 ```
 npm install -g webpack webpack-dev-server
 ```
+
+## Host frontend / backend scripts
+
+`webpack-dev-server` hosts frontend script in `localhost:8080`
 
 ## problems
 
