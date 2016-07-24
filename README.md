@@ -52,7 +52,7 @@ spins up both backend server and frontend server.
 
   - [x] install **react-thunk**
 
-[] add **mocha** test framework.
+[x] add **mocha** test framework.
 
   - [x] install **mocha**.
 
@@ -62,7 +62,15 @@ spins up both backend server and frontend server.
 
   - [] React testing framework **jsdom** [link](https://github.com/tmpvar/jsdom).
 
-[] change framework from **KOA** to **express**.
+[x] change framework from **KOA** to **express**.
+
+[x] split configuration depend on environment. use *webpack merge*.
+
+[x] add *hot module reload*.
+
+[] add react router.
+
+[] react router
 
 [] add **SASS** loader.
 
@@ -75,8 +83,6 @@ spins up both backend server and frontend server.
     - [] **style-loader** embeds css into our application.
 
 [] add **react hot loader** for development environment.
-
-[] host up [koa](http://koajs.com/).
 
 [] setup react router for server side rendering.
 

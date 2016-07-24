@@ -8,28 +8,28 @@ import { createStore } from 'redux'
 import { Provider }  from 'react-redux'
 import App from '../src/containers/App'
 import reducers from '../src/reducers'
-import config from '../webpack.config.js'
-import webpackMiddleware from 'webpack-dev-middleware'
+import webpackConfig from '../webpack.config.js'
 import webpack from 'webpack'
+
 const app = express()
-const staticPath = resolve(__dirname, '../..', 'static')
-const compiler = webpack(config)
+const staticPath = resolve(__dirname, '../..', 'build')
+const compiler = webpack(webpackConfig)
 const ROOT_PATH = resolve(__dirname)
 
-app.use(webpackMiddleware(compiler, {
-  inline: true,
-  hot: true,
-  contentBase: resolve(ROOT_PATH, 'build'),
-  publicPath: '/static/',
-  stats: {colors: true}
+// webpack dev middle ware
+app.use(require('webpack-dev-middleware')(compiler, {
+  noInfo: true,
+  publicPath: webpackConfig.output.publicPath,
+}))
+
+app.use(require('webpack-hot-middleware')(compiler, {
+  log: console.log,
+  path: '/__webpack_hmr',
+  heartbeat: 10 * 1000,
 }))
 
 // serve static files.
-app.use('/static', express.static(staticPath))
-
-// Fired everytime the server side receives a request.
-app.use(handleRender)
-app.use(renderFullPage)
+app.use(express.static(staticPath))
 
 function handleRender (req, res) {
   // Create store.
@@ -49,6 +49,9 @@ function handleRender (req, res) {
   res.send(renderFullPage(html, initialState))
 }
 
-app.listen(3004, () => {
-  console.log('listening in port 3004')
+// Fired everytime the server side receives a request.
+app.use('/', handleRender)
+
+app.listen(3005, () => {
+  console.log('listening in port 3005')
 })
