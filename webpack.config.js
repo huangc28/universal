@@ -1,16 +1,22 @@
 const webpack = require('webpack')
 const { resolve } = require('path')
 const HtmlwebpackPlugin = require('html-webpack-plugin')
-const merge = require('webpack-merge')
 const validator = require('webpack-validator')
-const ROOT_PATH = resolve(__dirname)
 
-const common = {
-  devtool: 'source-map',
-  entry: [
-    'webpack-hot-middleware/client?path=/__webpack_hmr',
+const ROOT_PATH = resolve(__dirname)
+const prod = process.env.NODE_ENV === 'production'
+const dev = process.env.NODE_ENV === 'development'
+const add = (env, plugin) => (env && plugin || undefined)
+const ifDev = plugin => add(dev, plugin)
+const ifProd = plugin => add(prod, plugin)
+const removeEmpty = plugins => (plugins.filter(i => !!i))
+
+const config = {
+  devtool: prod ? 'source-map' : 'eval-source-map',
+  entry: removeEmpty([
+    ifDev('webpack-hot-middleware/client?path=/__webpack_hmr'),
     resolve(ROOT_PATH, 'src/index.js')
-  ],
+  ]),
   output: {
     path: resolve(ROOT_PATH, 'build'),
     publicPath: '/',
@@ -50,31 +56,22 @@ const common = {
       }
     ]
   },
-  plugins: [
+  plugins: removeEmpty([
+    ifDev(new webpack.optimize.OccurrenceOrderPlugin()),
+    ifDev(new webpack.HotModuleReplacementPlugin({
+      multiStep: true
+    })),
+    ifDev(new webpack.NoErrorsPlugin()),
+    ifProd(new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    })),
     new HtmlwebpackPlugin({
       title: 'Universal App',
       template: resolve(ROOT_PATH, 'static/index.html')
     })
-  ]
-}
-
-// module.exports = common
-
-let config
-switch(process.env.npm_lifecycle_event) {
-  case 'build':
-    config = merge(common, {})
-    break
-  default:
-    config = merge(common, {
-    plugins: [
-      new webpack.optimize.OccurrenceOrderPlugin(),
-      new webpack.HotModuleReplacementPlugin({
-        multiStep: true
-      }),
-      new webpack.NoErrorsPlugin(),
-    ]
-  })
+  ])
 }
 
 module.exports = validator(config)
