@@ -13,10 +13,7 @@ const removeEmpty = plugins => (plugins.filter(i => !!i))
 
 const config = {
   devtool: prod ? 'source-map' : 'eval-source-map',
-  entry: removeEmpty([
-    ifDev('webpack-hot-middleware/client?path=/__webpack_hmr'),
-    resolve(ROOT_PATH, 'src/index.js')
-  ]),
+  entry: resolve(ROOT_PATH, 'src/index.js'),
   output: {
     path: resolve(ROOT_PATH, 'build'),
     publicPath: '/',
@@ -57,11 +54,6 @@ const config = {
     ]
   },
   plugins: removeEmpty([
-    ifDev(new webpack.optimize.OccurrenceOrderPlugin()),
-    ifDev(new webpack.HotModuleReplacementPlugin({
-      multiStep: true
-    })),
-    ifDev(new webpack.NoErrorsPlugin()),
     ifProd(new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false

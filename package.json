@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --recursive",
-    "dev": "NODE_ENV=development nodemon server/bin/server.js --ignore ./src/",
+    "dev": "NODE_ENV=development nodemon server/bin/server.js & webpack -w",
     "buildServer": "babel server/server.js -d build",
     "startServer": "node build/server/server.js",
     "lint": "eslint . --ext .js --ext .jsx",
@@ -38,9 +38,6 @@
     "redux-devtools": "^3.3.1",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1",
-    "webpack-dev-middleware": "^1.6.1",
-    "webpack-dev-server": "^1.14.1",
-    "webpack-hot-middleware": "^2.12.1",
     "webpack-validator": "^2.2.3"
   },
   "dependencies": {

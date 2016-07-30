@@ -5,11 +5,11 @@ export default function renderFullPage (html, initialState) {
         <title>Universal App</title>
       </head>
       <body>
-        <div id='app'>${html}</div>
+        <div id='app'><div>${html}<div></div>
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
         </script>
-        <script type='application/javascript' src='/build/main.js'></script>
+        <script type='application/javascript' src='build/main.js'></script>
       </body>
     </html>
   `

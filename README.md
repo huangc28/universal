@@ -68,21 +68,9 @@ spins up both backend server and frontend server.
 
 [x] add *hot module reload*.
 
-[] add react router.
-
-[] react router
-
-[] add **SASS** loader.
-
-    - [] **sass-loader**. compiles sass into css.
-
-    - [] **node-sass** one of the dependencies of **sass-loader**.
-
-    - [] **css-loader** turns css into js.
-
-    - [] **style-loader** embeds css into our application.
-
 [] add **react hot loader** for development environment.
+
+[] add react router.
 
 [] setup react router for server side rendering.
 

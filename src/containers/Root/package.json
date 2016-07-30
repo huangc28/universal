@@ -1,6 +1,6 @@
 {
-  "name": "App.jsx",
+  "name": "Root",
   "version": "0.0.0",
   "private": true,
-  "main": "./App.jsx"
+  "main": "./Root.jsx"
 }
