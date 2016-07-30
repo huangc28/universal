@@ -1,6 +1,5 @@
 const webpack = require('webpack')
 const { resolve } = require('path')
-const HtmlwebpackPlugin = require('html-webpack-plugin')
 const validator = require('webpack-validator')
 
 const ROOT_PATH = resolve(__dirname)
@@ -58,11 +57,7 @@ const config = {
       compress: {
         warnings: false
       }
-    })),
-    new HtmlwebpackPlugin({
-      title: 'Universal App',
-      template: resolve(ROOT_PATH, 'static/index.html')
-    })
+    }))
   ])
 }
 

@@ -19,7 +19,6 @@ const compiler = webpack(webpackConfig)
 
 // serve static files.
 app.use('/build', express.static(staticPath))
-
 function handleRender (req, res) {
   match({ routes: routes, location: req.url }, (error, redirectLocation, renderProps) => {
     if (error) {
