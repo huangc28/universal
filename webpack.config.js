@@ -69,9 +69,7 @@ const config = {
         'process.env.NODE_ENV': 'production'
       })
     ),
-    new webpack.optimize.CommonsChunkPlugin({ // extract
-      names: ['vendor', 'manifest']
-    })
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', Infinity)
   ])
 }
 
