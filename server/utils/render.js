@@ -1,8 +1,8 @@
-// import { resolve } from 'path'
+import { resolve } from 'path'
 
-// export const staticify = require("staticify")(
-//   resolve(__dirname, '../..' ,'build')
-// )
+export const staticify = require("staticify")(
+  resolve(__dirname, '../..' ,'build')
+)
 
 // console.log('staticify', staticify.getVersionedPath(resolve(__dirname, '../..' ,'build', '/main.js')))
 // console.log('staticify', staticify.getVersionedPath('/main.js'))
@@ -18,8 +18,8 @@ export function renderFullPage (html, initialState) {
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
         </script>
-        <script type='application/javascript' src='build/vendor.js'></script>
-        <script type='application/javascript' src='build/main.js'></script>
+        <script type='application/javascript' src='${staticify.getVersionedPath('/vendor.js')}'></script>
+        <script type='application/javascript' src='${staticify.getVersionedPath('/main.js')}'></script>
       </body>
     </html>
   `

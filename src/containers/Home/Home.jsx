@@ -2,7 +2,7 @@ import React from 'react'
 
 const Home = () => (
   <div>
-    this is a home componentssserwwweeesss.
+    this is homeddwwwsomething.
   </div>
 )
 

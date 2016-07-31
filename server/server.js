@@ -5,7 +5,7 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { match, RouterContext } from 'react-router'
 import routes from '../src/routes'
-import { renderFullPage } from './utils/render'
+import { renderFullPage, staticify } from './utils/render'
 import { createStore } from 'redux'
 import { Provider }  from 'react-redux'
 import reducers from '../src/reducers'
@@ -15,7 +15,7 @@ const ROOT_PATH = resolve(__dirname)
 const app = express()
 const staticPath = resolve(ROOT_PATH, '..', 'build')
 
-// app.use(staticify.middleware)
+app.use(staticify.middleware)
 
 // serve static files.
 app.use('/build', express.static(staticPath))
