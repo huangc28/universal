@@ -1,6 +1,7 @@
 const webpack = require('webpack')
 const { resolve } = require('path')
 const validator = require('webpack-validator')
+const packages = require('./package.json')
 
 const ROOT_PATH = resolve(__dirname)
 const prod = process.env.NODE_ENV === 'production'
@@ -12,7 +13,10 @@ const removeEmpty = plugins => (plugins.filter(i => !!i))
 
 const config = {
   devtool: prod ? 'source-map' : 'eval-source-map',
-  entry: resolve(ROOT_PATH, 'src/index.js'),
+  entry: {
+    main: resolve(ROOT_PATH, 'src/index.js'),
+    vendor: Object.keys(packages.dependencies)
+  },
   output: {
     path: resolve(ROOT_PATH, 'build'),
     publicPath: '/',
@@ -53,11 +57,21 @@ const config = {
     ]
   },
   plugins: removeEmpty([
-    ifProd(new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    }))
+    ifProd(
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false
+        }
+      })
+    ),
+    ifProd(
+        new webpack.DefinePlugin({
+        'process.env.NODE_ENV': 'production'
+      })
+    ),
+    new webpack.optimize.CommonsChunkPlugin({ // extract
+      names: ['vendor', 'manifest']
+    })
   ])
 }
 

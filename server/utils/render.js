@@ -10,6 +10,7 @@ export default function renderFullPage (html, initialState) {
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
         </script>
         <script type='application/javascript' src='build/main.js'></script>
+        <script type='application/javascript' src='build/vendor.js'></script>
       </body>
     </html>
   `
