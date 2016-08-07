@@ -2,7 +2,6 @@ const webpack = require('webpack')
 const { resolve } = require('path')
 const validator = require('webpack-validator')
 const packages = require('./package.json')
-
 const ROOT_PATH = resolve(__dirname)
 const prod = process.env.NODE_ENV === 'production'
 const dev = process.env.NODE_ENV === 'development'
@@ -19,7 +18,7 @@ const config = {
   },
   output: {
     path: resolve(ROOT_PATH, 'build'),
-    publicPath: 'build/',
+    publicPath: '/',
     filename: '[name].js'
   },
   resolve: {
@@ -36,7 +35,7 @@ const config = {
         include: resolve(ROOT_PATH, 'universal')
       }
     ],
-    loaders: [
+    loaders: removeEmpty([
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
@@ -53,8 +52,8 @@ const config = {
         test: /\.css$/,
         loader: 'style!css?modules&importLoaders=1&' +
         'localIdentName=[path]___[name]__[local]___[hash:base64:5]'
-      }
-    ]
+      },
+    ])
   },
   plugins: removeEmpty([
     ifProd(
@@ -69,7 +68,7 @@ const config = {
         'process.env.NODE_ENV': 'production'
       })
     ),
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', Infinity)
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', Infinity),
   ])
 }
 

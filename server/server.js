@@ -14,10 +14,10 @@ import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackConfig from '../webpack.config.js'
 
 const app = express()
-const staticPath = resolve(__dirname, '..', 'build')
+const staticPath = resolve(__dirname, '..', 'static')
 const compiler = webpack(webpackConfig)
 
-app.use(staticify.middleware)
+// app.use(staticify.middleware)
 
 // webpack dev middleware
 app.use(webpackDevMiddleware(compiler, {
@@ -29,7 +29,7 @@ app.use(webpackDevMiddleware(compiler, {
 
 
 // serve static files.
-app.use('/build', express.static(staticPath))
+app.use('/static', express.static(staticPath))
 function handleRender (req, res) {
   match({ routes: routes, location: req.url }, (error, redirectLocation, renderProps) => {
     if (error) {
