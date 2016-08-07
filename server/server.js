@@ -17,7 +17,7 @@ const app = express()
 const staticPath = resolve(__dirname, '..', 'static')
 const compiler = webpack(webpackConfig)
 
-// app.use(staticify.middleware)
+app.use(staticify.middleware)
 
 // webpack dev middleware
 app.use(webpackDevMiddleware(compiler, {
@@ -26,7 +26,6 @@ app.use(webpackDevMiddleware(compiler, {
       colors: true
   }
 }))
-
 
 // serve static files.
 app.use('/static', express.static(staticPath))
