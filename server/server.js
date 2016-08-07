@@ -9,13 +9,24 @@ import { renderFullPage, staticify } from './utils/render'
 import { createStore } from 'redux'
 import { Provider }  from 'react-redux'
 import reducers from '../src/reducers'
+import webpack from 'webpack'
+import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackConfig from '../webpack.config.js'
 
-const ROOT_PATH = resolve(__dirname)
 const app = express()
-const staticPath = resolve(ROOT_PATH, '..', 'build')
+const staticPath = resolve(__dirname, '..', 'build')
+const compiler = webpack(webpackConfig)
 
 app.use(staticify.middleware)
+
+// webpack dev middleware
+app.use(webpackDevMiddleware(compiler, {
+  publicPath: webpackConfig.output.publicPath,
+  stats: {
+      colors: true
+  }
+}))
+
 
 // serve static files.
 app.use('/build', express.static(staticPath))

@@ -4,9 +4,6 @@ export const staticify = require("staticify")(
   resolve(__dirname, '../..' ,'build')
 )
 
-// console.log('staticify', staticify.getVersionedPath(resolve(__dirname, '../..' ,'build', '/main.js')))
-// console.log('staticify', staticify.getVersionedPath('/main.js'))
-
 export function renderFullPage (html, initialState) {
   return `<!doctype html>
     <html>

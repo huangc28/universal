@@ -19,7 +19,7 @@ const config = {
   },
   output: {
     path: resolve(ROOT_PATH, 'build'),
-    publicPath: '/',
+    publicPath: 'build/',
     filename: '[name].js'
   },
   resolve: {
