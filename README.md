@@ -158,6 +158,15 @@ npm install -g webpack webpack-dev-server
 
 when building server side code with **koa** implemented, it needs **babel-polyfill** to accommodate es6 **promise** / **await async**.
 
+### webpack dev middleware
+
+search the purpose of:
+
+```
+hot: true
+historyApiFallback: true
+```
+
 ## References
 
 1. [babel node server example](https://github.com/babel/example-node-server)

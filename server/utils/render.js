@@ -11,6 +11,10 @@ export function renderFullPage (html, initialState) {
   `<link rel="stylesheet" type="text/css" href=${staticify.getVersionedPath('/main.css')}>`:
   ''
 
+  const vendorBundle = (process.env.NODE_ENV === 'production') ?
+  `<script type='application/javascript' src='${staticify.getVersionedPath('/vendor.js')}'></script>`:
+  ''
+
   return `<!doctype html>
     <html>
       <head>
@@ -22,7 +26,7 @@ export function renderFullPage (html, initialState) {
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
         </script>
-        <script type='application/javascript' src='${staticify.getVersionedPath('/vendor.js')}'></script>
+        ${vendorBundle}
         <script type='application/javascript' src='${staticify.getVersionedPath('/main.js')}'></script>
       </body>
     </html>

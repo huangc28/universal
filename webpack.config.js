@@ -10,12 +10,25 @@ const ifDev = plugin => add(dev, plugin)
 const ifProd = plugin => add(prod, plugin)
 const removeEmpty = plugins => (plugins.filter(i => !!i))
 
+let entry
+
+if (dev) {
+  entry = [
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000',
+    resolve(__dirname, 'src/index.js'),
+  ]  
+} 
+
+if (prod) {
+  entry = {
+    main: resolve(__dirname, 'src/index.js'),
+    vendor: Object.keys(packages.dependencies),
+  }
+}
+
 const config = {
   devtool: prod ? 'source-map' : 'eval-source-map',
-  entry: {
-    main: resolve(__dirname, 'src/index.js'),
-    vendor: Object.keys(packages.dependencies)
-  },
+  entry,
   output: {
     path: resolve(__dirname, 'build'),
     publicPath: '/',
@@ -76,8 +89,11 @@ const config = {
         'process.env.NODE_ENV': 'production'
       })
     ),
-    new ExtractTextPlugin('[name].css'),
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', Infinity),
+    ifProd(new ExtractTextPlugin('[name].css')),
+    ifProd(new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', Infinity)),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    ifDev(new webpack.HotModuleReplacementPlugin()),
+    ifDev(new webpack.NoErrorsPlugin()),
   ])
 }
 

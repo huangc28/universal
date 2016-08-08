@@ -11,24 +11,36 @@ import { Provider }  from 'react-redux'
 import reducers from '../src/reducers'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
+import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackConfig from '../webpack.config.js'
 
 const app = express()
 const staticPath = resolve(__dirname, '..', 'static')
 const compiler = webpack(webpackConfig)
 
+// serve static files.
+app.use('/static', express.static(staticPath))
+
 app.use(staticify.middleware)
 
 // webpack dev middleware
 app.use(webpackDevMiddleware(compiler, {
+  noInfo: true,
+  hot: true,
+  historyApiFallback: true,
   publicPath: webpackConfig.output.publicPath,
   stats: {
       colors: true
   }
 }))
 
-// serve static files.
-app.use('/static', express.static(staticPath))
+app.use(webpackHotMiddleware(compiler, { // eslint-disable-line global-require
+  log: console.log, // eslint-disable-line no-console
+  path: '/__webpack_hmr',
+  heartbeat: 10 * 1000,
+}))
+
+
 function handleRender (req, res) {
   match({ routes: routes, location: req.url }, (error, redirectLocation, renderProps) => {
     if (error) {
