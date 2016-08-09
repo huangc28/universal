@@ -4,7 +4,7 @@ class Home extends Component {
 	render() {
 		return (
 			<div>
-	    	this is.ssesdfswernihao
+	    	hot reload ftw!!!
 	  	</div>
 		)
 	}

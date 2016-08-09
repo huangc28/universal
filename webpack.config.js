@@ -82,7 +82,9 @@ const config = {
     ifProd(new ExtractTextPlugin('[name].css')),
     ifProd(new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', Infinity)),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    ifDev(new webpack.HotModuleReplacementPlugin()),
+    ifDev(new webpack.HotModuleReplacementPlugin({
+      multiStep: true,
+    })),
     ifDev(new webpack.NoErrorsPlugin()),
   ])
 }
