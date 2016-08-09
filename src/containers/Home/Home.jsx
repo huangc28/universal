@@ -7,7 +7,7 @@ class Home extends Component {
 		return (
 			<div className={styles.root}>
 				<Title title="this is a custom title" />
-	    	hot reload ftw!!!
+	    	hot reload ftwddd!!!
 	  	</div>
 		)
 	}

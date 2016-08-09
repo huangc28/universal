@@ -10,7 +10,7 @@ export function renderFullPage (html, initialState) {
   const cssBundle = (process.env.NODE_ENV === 'production') ?
   `<link rel="stylesheet" type="text/css" href=${staticify.getVersionedPath('/main.css')}>`:
   ''
-  
+
   return `<!doctype html>
     <html>
       <head>
@@ -23,8 +23,8 @@ export function renderFullPage (html, initialState) {
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
         </script>
 
-        <script type='application/javascript' src='${staticify.getVersionedPath('/main.js')}'></script>
         <script type='application/javascript' src='${staticify.getVersionedPath('/vendor.js')}'></script>
+        <script type='application/javascript' src='${staticify.getVersionedPath('/main.js')}'></script>
       </body>
     </html>
   `

@@ -72,18 +72,9 @@ spins up both backend server and frontend server.
 
 [x] add react router.
 
-[] setup react router for server side rendering.
-
-[] renders React component from server.
+[] serve static assets.
 
 ## TODO list
-
-[] deprecate Frontend host script, since this is going to be a server side rendering app. All components will be generated from Backend.
-
-```
-"build": "webpack",
-"start:dev": "webpack-dev-server"
-```
 
 ## Generator Pattern
 
@@ -174,3 +165,5 @@ historyApiFallback: true
 2. [react + react-router + redux + koa example](http://blog.joanboixados.com/building-a-boilerplate-for-a-koa-redux-react-application-including-webpack-mocha-and-sass/)
 
 3. [about source map](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/)
+
+4. [build isomorphic redux application with love](https://medium.com/front-end-developers/handcrafting-an-isomorphic-redux-application-with-love-40ada4468af4#.g32xaoksy)
