@@ -1,6 +1,6 @@
 ## Purpose
 
-Implementing a server side rendering app with **React** + **Redux** + **Koa** + **Webpack**.
+Implementing a server side rendering app with **React** + **Redux** + **Express** + **Webpack**.
 
 ## Server Side Rendering
 
@@ -68,9 +68,9 @@ spins up both backend server and frontend server.
 
 [x] add *hot module reload*.
 
-[] add **react hot loader** for development environment.
+[x] add **react hot loader** for development environment.
 
-[] add react router.
+[x] add react router.
 
 [] setup react router for server side rendering.
 
