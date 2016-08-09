@@ -87,7 +87,7 @@ const config = {
       ifProd({
         test: /\.css$/,
         loader: ExtractTextPlugin.extract(
-          'style', 
+          'style',
           'css',
           'importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]'
         )
@@ -113,7 +113,10 @@ const config = {
       })
     ),
     ifProd(new ExtractTextPlugin('[name].css')),
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', Infinity),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.js',
+    }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     ifDev(new webpack.HotModuleReplacementPlugin({
       multiStep: true,

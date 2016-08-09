@@ -6,9 +6,9 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --recursive",
-    "dev": "NODE_ENV=development nodemon bin/server.js",
+    "dev": "NODE_ENV=development nodemon bin/server.js -- --env.dev",
     "lint": "eslint . --ext .js --ext .jsx",
-    "build": "npm run clean & NODE_ENV=production webpack",
+    "build": "npm run clean & NODE_ENV=production webpack -- --env.prod",
     "build:watch": "webpack -w",
     "clean": "rimraf build"
   },
@@ -24,6 +24,7 @@
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.5.0",
     "babel-preset-stage-2": "^6.5.0",
+    "babel-register": "^6.11.6",
     "chai": "^3.5.0",
     "chai-immutable": "^1.5.4",
     "css-loader": "^0.23.1",
@@ -43,7 +44,7 @@
     "style-loader": "^0.13.1",
     "svg-url-loader": "^1.1.0",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.1",
+    "webpack": "^2.1.0-beta.19",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.7.1",
     "webpack-validator": "^2.2.3"
