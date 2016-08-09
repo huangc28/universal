@@ -26,7 +26,6 @@ app.use(staticify.middleware)
 // webpack dev middleware
 app.use(webpackDevMiddleware(compiler, {
   noInfo: true,
-  hot: true,
   historyApiFallback: true,
   publicPath: webpackConfig.output.publicPath,
   stats: {

@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-const Home = () => (
-  <div>
-    this is.
-  </div>
-)
+class Home extends Component {
+	render() {
+		return (
+			<div>
+	    	this is.ssesdfswernihao
+	  	</div>
+		)
+	}
+}
 
 export default Home
