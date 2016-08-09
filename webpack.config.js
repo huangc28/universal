@@ -49,7 +49,40 @@ const config = {
       },
       {
         test: /\.json$/,
-        loader: 'json-loader'
+        loader: 'json-loader',
+      },
+      {
+        test: /\.(jpe?g|png)/,
+        loader: 'url',
+      },
+      {
+        test: /\.svg/,
+        loader: 'svg-url-loader?limit=25000',
+      },
+      {
+        test: /\.woff(\?\.*)?$/,
+        loader: 'url',
+        query: {
+          limit: 50000,
+          mimetype: 'application/font-woff',
+          name: './font/[hash].[ext]',
+        },
+      },
+      {
+        test: /\.woff2(\?\.*)?$/,
+        loader: 'url',
+        query: {
+          limit: 50000,
+          mimetype: 'application/font-woff2',
+          name: './font/[hash].[ext]',
+        },
+      },
+      {
+        test: /\.ttf$|\.eot$/,
+        loader: 'file',
+        query: {
+          name: 'font/[hash].[ext]',
+        },
       },
       ifProd({
         test: /\.css$/,
