@@ -1,13 +1,21 @@
 import React, { Component } from 'react'
 import { createStore } from 'redux'
-import rootReducer from './reducers'
+import { Router, browserHistory } from 'react-router'
+import { Provider } from 'react-redux'
 import ReactDOM from 'react-dom'
-import Root from './containers/Root'
+import rootReducer from './reducers'
+import routes from './routes'
 
 const initialState = window.__INITIAL_STATE__
 const store = createStore(rootReducer, initialState)
 
+const App = () => (
+	<Provider store={store}>
+	  <Router routes={routes} history={browserHistory} />
+	</Provider>
+)
+
 ReactDOM.render(
-  <Root store={store} />,
+  <App />,
   document.getElementById('app')
 )

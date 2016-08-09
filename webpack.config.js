@@ -10,25 +10,15 @@ const ifDev = plugin => add(dev, plugin)
 const ifProd = plugin => add(prod, plugin)
 const removeEmpty = plugins => (plugins.filter(i => !!i))
 
-let entry
-
-if (dev) {
-  entry = [
-    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000',
-    resolve(__dirname, 'src/index.js'),
-  ]  
-} 
-
-if (prod) {
-  entry = {
-    main: resolve(__dirname, 'src/index.js'),
-    vendor: Object.keys(packages.dependencies),
-  }
-}
-
 const config = {
   devtool: prod ? 'source-map' : 'eval-source-map',
-  entry,
+  entry: {
+    main: [resolve(__dirname, 'src/index.js'), 'webpack-hot-middleware/client'],
+    vendor: [
+      ...Object.keys(packages.dependencies),
+      'webpack-hot-middleware/client',
+    ],
+  },
   output: {
     path: resolve(__dirname, 'build'),
     publicPath: '/',

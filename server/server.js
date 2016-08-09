@@ -30,8 +30,8 @@ app.use(webpackDevMiddleware(compiler, {
   historyApiFallback: true,
   publicPath: webpackConfig.output.publicPath,
   stats: {
-      colors: true
-  }
+      colors: true,
+  },
 }))
 
 app.use(webpackHotMiddleware(compiler, { // eslint-disable-line global-require
