@@ -72,6 +72,8 @@ spins up both backend server and frontend server.
 
 [x] add react router.
 
+[] polyfill promises for webpack2.
+
 [] serve static assets.
 
 ## TODO list

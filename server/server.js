@@ -12,10 +12,10 @@ import reducers from '../src/reducers'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
-import webpackConfig from '../webpack.config.js'
 
 const app = express()
 const staticPath = resolve(__dirname, '..', 'static')
+const webpackConfig = require('../webpack.config.js')({ dev: true })
 const compiler = webpack(webpackConfig)
 
 // serve static files.

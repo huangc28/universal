@@ -8,7 +8,7 @@
     "test": "mocha --compilers js:babel-core/register --recursive",
     "dev": "NODE_ENV=development nodemon bin/server.js -- --env.dev",
     "lint": "eslint . --ext .js --ext .jsx",
-    "build": "npm run clean & NODE_ENV=production webpack -- --env.prod",
+    "build:prod": "npm run clean & NODE_ENV=production webpack -- --env.prod",
     "build:watch": "webpack -w",
     "clean": "rimraf build"
   },
@@ -19,7 +19,7 @@
     "babel-eslint": "^6.0.4",
     "babel-loader": "^6.2.4",
     "babel-polyfill": "^6.9.1",
-    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-es2015": "^6.13.2",
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.5.0",
