@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --recursive",
-    "dev": "NODE_ENV=development nodemon bin/server.js -- --env.dev",
+    "dev": "NODE_ENV=development nodemon bin/server.js",
     "lint": "eslint . --ext .js --ext .jsx",
     "build:prod": "npm run clean & NODE_ENV=production webpack -- --env.prod",
     "build:watch": "webpack -w",

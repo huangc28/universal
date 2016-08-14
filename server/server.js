@@ -23,22 +23,23 @@ app.use('/static', express.static(staticPath))
 
 app.use(staticify.middleware)
 
-// webpack dev middleware
-app.use(webpackDevMiddleware(compiler, {
-  noInfo: true,
-  historyApiFallback: true,
-  publicPath: webpackConfig.output.publicPath,
-  stats: {
-      colors: true,
-  },
-}))
+if (process.env.NODE_ENV === 'development') {
+  // webpack dev middleware
+  app.use(webpackDevMiddleware(compiler, {
+    noInfo: true,
+    historyApiFallback: true,
+    publicPath: webpackConfig.output.publicPath,
+    stats: {
+        colors: true,
+    },
+  }))
 
-app.use(webpackHotMiddleware(compiler, { // eslint-disable-line global-require
-  log: console.log, // eslint-disable-line no-console
-  path: '/__webpack_hmr',
-  heartbeat: 10 * 1000,
-}))
-
+  app.use(webpackHotMiddleware(compiler, { // eslint-disable-line global-require
+    log: console.log, // eslint-disable-line no-console
+    path: '/__webpack_hmr',
+    heartbeat: 10 * 1000,
+  }))
+}
 
 function handleRender (req, res) {
   match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
