@@ -8,6 +8,8 @@
     "react"
   ],
   "rules": {
+    "no-console": 0,
+    "comma-dangle": ["error", "always-multiline"],
     "new-cap": 0,
     "strict": 0,
     "no-underscore-dangle": 0,

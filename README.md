@@ -74,7 +74,9 @@ spins up both backend server and frontend server.
 
 [x] polyfill promises for webpack2.
 
-[] use `ava` for test framework.
+[x] use `ava` for test framework.
+
+[] add `jshint`
 
 [] serve static assets.
 

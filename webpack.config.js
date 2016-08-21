@@ -21,22 +21,22 @@ module.exports = env => {
     output: {
       path: resolve(__dirname, 'build'),
       publicPath: '/',
-      filename: '[name].js'
+      filename: '[name].js',
     },
     bail: env.prod,
     resolve: {
-      extensions: ['', '.js', '.jsx']
+      extensions: ['', '.js', '.jsx'],
     },
     node: {
-      fs: 'empty'
+      fs: 'empty',
     },
     module: {
       preLoaders: [
         {
           test: /\.(js|jsx)$/,
           loaders: ['eslint'],
-          include: resolve(__dirname, 'universal')
-        }
+          include: resolve(__dirname, 'universal'),
+        },
       ],
       loaders: removeEmpty([
         {
@@ -44,8 +44,8 @@ module.exports = env => {
           exclude: /node_modules/,
           loader: 'babel-loader',
           query: {
-            presets: ['es2015', 'react', 'stage-0', 'react-hmre']
-          }
+            presets: ['es2015', 'react', 'stage-0', 'react-hmre'],
+          },
         },
         {
           test: /\.json$/,
@@ -90,14 +90,14 @@ module.exports = env => {
             fallbackLoader: 'style',
             loader: 'css?module&importLoaders=1&' +
             'localIdentName=[path]___[name]__[local]___[hash:base64:5]',
-          })
+          }),
         }),
         ifDev({
           test: /\.css$/,
           loader: 'style!css?modules&importLoaders=1&' +
-          'localIdentName=[path]___[name]__[local]___[hash:base64:5]'
+          'localIdentName=[path]___[name]__[local]___[hash:base64:5]',
         }),
-      ])
+      ]),
     },
     plugins: removeEmpty([
       ifProd(new webpack.optimize.DedupePlugin()),
@@ -105,16 +105,16 @@ module.exports = env => {
         compress: {
           screw_ie8: true,
           warnings: false,
-        }
+        },
       })),
       ifProd(
           new webpack.DefinePlugin({
-          'process.env.NODE_ENV': '"production"'
+          'process.env.NODE_ENV': '"production"',
         })
       ),
       ifDev(
         new webpack.DefinePlugin({
-          'process.env.NODE_ENV': '"development"'
+          'process.env.NODE_ENV': '"development"',
         })
       ),
       ifProd(new ExtractTextPlugin('[name].css')),
@@ -127,6 +127,6 @@ module.exports = env => {
         multiStep: true,
       })),
       ifDev(new webpack.NoErrorsPlugin()),
-    ])
+    ]),
   }
 }
