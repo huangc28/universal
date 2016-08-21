@@ -72,7 +72,9 @@ spins up both backend server and frontend server.
 
 [x] add react router.
 
-[] polyfill promises for webpack2.
+[x] polyfill promises for webpack2.
+
+[] use `ava` for test framework.
 
 [] serve static assets.
 

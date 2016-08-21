@@ -5,16 +5,24 @@
   "description": "nodejs isomorphic package",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register --recursive",
     "dev": "NODE_ENV=development nodemon bin/server.js",
     "lint": "eslint . --ext .js --ext .jsx",
     "build": "npm run clean & webpack --progress --verbose --display-error-details",
     "build:prod": "NODE_ENV=production npm run build -- --env.prod",
     "build:watch": "webpack -w",
-    "clean": "rimraf build"
+    "clean": "rimraf build",
+    "test": "ava '**/*.spec.js'",
+    "test:watch": "ava --watch '**/*.spec.js'"
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit"
   },
   "license": "ISC",
   "devDependencies": {
+    "ava": "^0.16.0",
     "babel-cli": "6.9.0",
     "babel-core": "6.9.1",
     "babel-eslint": "6.0.4",
@@ -26,8 +34,6 @@
     "babel-preset-stage-0": "6.5.0",
     "babel-preset-stage-2": "6.5.0",
     "babel-register": "6.11.6",
-    "chai": "3.5.0",
-    "chai-immutable": "1.5.4",
     "css-loader": "0.23.1",
     "css-modules-require-hook": "4.0.1",
     "eslint": "2.11.1",
@@ -37,7 +43,6 @@
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.9.0",
     "json-loader": "0.5.4",
-    "mocha": "2.5.3",
     "nodemon": "1.9.2",
     "redux-devtools": "3.3.1",
     "rimraf": "2.5.4",
