@@ -1,6 +1,6 @@
 {
   "name": "universal",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Bryan Huang",
   "description": "nodejs isomorphic package",
   "main": "index.js",
