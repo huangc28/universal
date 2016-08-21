@@ -76,7 +76,9 @@ spins up both backend server and frontend server.
 
 [x] use `ava` for test framework.
 
-[] add `jshint`
+[x] add `eslint`
+
+[x] add `asset-require-hook` to load various image mimeTypes from server side.
 
 [] serve static assets.
 
