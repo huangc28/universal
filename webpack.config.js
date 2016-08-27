@@ -41,7 +41,7 @@ module.exports = env => {
           exclude: /node_modules/,
           loader: 'babel-loader',
           query: {
-            presets: ['es2015', 'react', 'stage-0', 'react-hmre'],
+            presets: ['es2015', 'react', 'stage-0'],
           },
         },
         {
@@ -50,7 +50,10 @@ module.exports = env => {
         },
         {
           test: /\.(jpe?g|png)/,
-          loader: 'url',
+          loaders: [
+            'file?hash=sha512&digest=hex&name=[hash].[ext]',
+            'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+          ],
         },
         {
           test: /\.svg/,
