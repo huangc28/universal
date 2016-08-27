@@ -9,7 +9,6 @@
     "lint": "eslint . --ext .js --ext .jsx",
     "build": "npm run clean & webpack --progress --verbose --display-error-details",
     "build:prod": "npm run clean && NODE_ENV=production npm run build -- --env.prod",
-    "build:watch": "webpack -w",
     "clean": "rimraf build",
     "test": "ava '**/*.spec.js'",
     "test:watch": "ava --watch '**/*.spec.js'"
