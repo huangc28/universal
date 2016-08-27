@@ -11,13 +11,10 @@ module.exports = env => {
   const removeEmpty = plugins => (plugins.filter(i => !!i))
   return {
     devtool: env.prod ? 'source-map' : 'eval-source-map',
-    entry: {
-      main: [resolve(__dirname, 'src/index.js'), 'webpack-hot-middleware/client?path=/__webpack_hmr'],
-      vendor: [
-        ...Object.keys(packages.dependencies),
-        'webpack-hot-middleware/client?path=/__webpack_hmr',
-      ],
-    },
+    entry: removeEmpty([
+      resolve(__dirname, 'src/index.js'),
+      ifDev('webpack-hot-middleware/client?path=/__webpack_hmr'),
+    ]),
     output: {
       path: resolve(__dirname, 'build'),
       publicPath: '/',
@@ -121,6 +118,11 @@ module.exports = env => {
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
         filename: 'vendor.js',
+        minChunks: module => (
+          module.resource &&
+          module.resource.indexOf('node_module') !== -1 &&
+          module.resource.indexOf('.css') === -1
+        ),
       }),
       new webpack.optimize.OccurrenceOrderPlugin(),
       ifDev(new webpack.HotModuleReplacementPlugin({

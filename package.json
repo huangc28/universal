@@ -8,7 +8,7 @@
     "dev": "NODE_ENV=development nodemon bin/server.js",
     "lint": "eslint . --ext .js --ext .jsx",
     "build": "npm run clean & webpack --progress --verbose --display-error-details",
-    "build:prod": "NODE_ENV=production npm run build -- --env.prod",
+    "build:prod": "npm run clean && NODE_ENV=production npm run build -- --env.prod",
     "build:watch": "webpack -w",
     "clean": "rimraf build",
     "test": "ava '**/*.spec.js'",
