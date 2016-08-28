@@ -80,9 +80,45 @@ spins up both backend server and frontend server.
 
 [x] add `asset-require-hook` to load various image mimeTypes from server side.
 
-[] serve static assets.
+[x] serve static assets.
 
-## TODO list
+
+
+## Probably best way to shrink the bundle size at its max using commonChunksPlugin!
+
+I read through [surviveJS](http://survivejs.com/) for extracting *vendor.js*. The article suggest to put all the *frontend modules* under `dependencies` such as react, redux, redux-saga...etc in `package.json` and bundles them up using *commonChunksPlugin*:
+
+```
+plugins: [
+  new commonChunksPlugin ({
+    name: vendor,
+    filename: vendor.js,
+  })
+]
+```
+
+However, this reveals a problem that it does not extract out the common chunks among those *frontend modules*. Thus, they might use common chunks that don't get extract out. This results in bigger bundle size. To avoid this, we can use follow settings:
+
+```
+entry: [
+  join(__dirname, 'src', 'index.js')
+]
+...
+plugins: [
+  new commonChunksPlugin ({
+    name: vendor,
+    filename: vendor.js,
+    minChunks: module => {
+      module.resource &&
+      module.resource.indexOf('node_modules') !== -1 &&
+      module.resource.indexOf('.css') === -1
+    }
+  })
+]
+
+```
+
+the above config will load every modules that are actually being `imported` start from the `index.js` and generate a common module amongst them all.
 
 ## Generator Pattern
 
@@ -175,3 +211,5 @@ historyApiFallback: true
 3. [about source map](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/)
 
 4. [build isomorphic redux application with love](https://medium.com/front-end-developers/handcrafting-an-isomorphic-redux-application-with-love-40ada4468af4#.g32xaoksy)
+
+5. [surviveJS](http://survivejs.com/)
