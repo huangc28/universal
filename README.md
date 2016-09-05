@@ -10,6 +10,18 @@ Server side rendering is difference from pure frontend rendering. As of **dev** 
 
 spins up both backend server and frontend server.
 
+### install
+
+`npm install`
+
+and
+
+`npm run dev`
+
+### production build
+
+`npm run build:prod`
+
 ## Progress
 
 [x] setup webpack compilation environment.
