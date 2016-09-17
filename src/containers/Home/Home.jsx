@@ -15,8 +15,8 @@ class Home extends Component {
 	render() {
 		return (
 			<div className={styles.root}>
-				<Title title="this is a custom titlesss" />
-	    	hot reload ftw!!!
+				<Title title="this is a custom title" />
+				setdefsssesdfeesdfDESDF
 	    	{this.state.text}
 				<img src={TestJPEG} />
 	  	</div>

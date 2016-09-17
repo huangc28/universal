@@ -13,7 +13,7 @@ module.exports = env => {
     devtool: env.prod ? 'source-map' : 'eval-source-map',
     entry: removeEmpty([
       resolve(__dirname, 'src/index.js'),
-      ifDev('webpack-hot-middleware/client?path=/__webpack_hmr'),
+      ifDev('webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000'),
     ]),
     output: {
       path: resolve(__dirname, 'build'),
@@ -41,7 +41,7 @@ module.exports = env => {
           exclude: /node_modules/,
           loader: 'babel-loader',
           query: {
-            presets: ['es2015', 'react', 'stage-0'],
+            presets: ['es2015', 'react', 'stage-0', 'react-hmre'],
           },
         },
         {

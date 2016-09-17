@@ -4,7 +4,9 @@ Implementing a server side rendering app with **React** + **Redux** + **Express*
 
 ## Server Side Rendering
 
-Server side rendering is difference from pure frontend rendering. As of **dev** environment, dev server is spun up by **webpack-hot-loader** and loads the **webpack** config from **webpack.config.js**, thus, all settings can be specified there. WhereAs in server side rendering, we need to import **webpack** module into the script.
+1. server is responsible for rendering initial html
+
+2. serve *js bundle* as public, leave the rendering to frontend.
 
 ### backend + frontend
 
@@ -94,6 +96,7 @@ and
 
 [x] serve static assets.
 
+[] add *karma* + *enzyme* for testing react components.
 
 
 ## Probably best way to shrink the bundle size at its max using commonChunksPlugin!
