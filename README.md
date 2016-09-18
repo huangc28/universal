@@ -217,6 +217,36 @@ hot: true
 historyApiFallback: true
 ```
 
+## Not hot reloading stateless function component
+
+*webpack-dev-middleware* does not support hot reloading stateless function components.
+when your topmost component is written stateless function, for example:
+
+```js
+// in routes.js
+<Route path="/" component={App} >
+  <Route path="/home" component={Home} />
+</Route>
+```
+
+```js
+export default const Home = () => (...)
+```
+
+The above component will not be hot reloaded by *webpack-dev-middleware*.
+to resolve this issue, we need to place the following snippet in the parent component.
+
+```js
+// check if its HMR.
+if (module.hot) {
+  // if it is, itself accept the update!
+  module.hot.accept()
+}
+```
+please refer to [this](https://webpack.github.io/docs/hot-module-replacement.html).
+
+[gaeeron's solution](https://github.com/gaearon/babel-plugin-react-transform/issues/57)
+
 ## References
 
 1. [babel node server example](https://github.com/babel/example-node-server)
