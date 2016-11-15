@@ -1,14 +1,14 @@
 import 'babel-polyfill'
 import express from 'express'
-import { resolve, join } from 'path'
+import { resolve } from 'path'
 import React from 'react'
+import { Provider } from 'react-redux'
 import { renderToString } from 'react-dom/server'
 import { match, RouterContext } from 'react-router'
+import configureStore from '../src/store/configureStore'
 import routes from '../src/routes'
 import { renderFullPage, staticify } from './utils/render'
-import { createStore } from 'redux'
-import { Provider }  from 'react-redux'
-import reducers from '../src/reducers'
+import rootReducer from '../src/reducers'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
@@ -30,7 +30,7 @@ if (process.env.NODE_ENV === 'development') {
     historyApiFallback: true,
     publicPath: webpackConfig.output.publicPath,
     stats: {
-        colors: true,
+      colors: true,
     },
   }))
 
@@ -42,24 +42,32 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 function handleRender (req, res) {
-  match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
+  match({
+    routes,
+    location: req.url,
+  }, (error, redirectLocation, renderProps) => {
     if (error) {
       res.status(500).send(error.message)
     } else if (redirectLocation) {
       res.redirect(302, `${redirectLocation.pathname}${redirectLocation.search}`)
     } else if (renderProps) {
 
-      // route is found, prepare html string...
-      const html = renderToString(<RouterContext {...renderProps} />)
+      const initialState = {}
 
-      // prepare redux store
-      const store = createStore(reducers)
+      const store = configureStore(rootReducer, initialState)
+
+      // route is found, prepare html string...
+      const html = renderToString(
+        <Provider store={store}>
+          <RouterContext {...renderProps} />
+        </Provider>
+      )
 
       // get the initial state from redux store
-      const initialState = store.getState()
+      const finalizedState = store.getState()
 
       // render full page along with html and redux store
-      res.send(renderFullPage(html, initialState))
+      res.send(renderFullPage(html, finalizedState))
     }
     // route is not found, send 404 not found page.
   })
