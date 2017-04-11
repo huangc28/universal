@@ -1,27 +1,40 @@
+/* global __CLIENT__ */
+
 import 'babel-polyfill'
 import express from 'express'
+import bodyParser from 'body-parser'
 import { resolve } from 'path'
 import React from 'react'
 import { Provider } from 'react-redux'
 import { renderToString } from 'react-dom/server'
 import { match, RouterContext } from 'react-router'
-import configureStore from '../src/store/configureStore'
-import routes from '../src/routes'
-import { renderFullPage, staticify } from './utils/render'
-import rootReducer from '../src/reducers'
+import morgan from 'morgan'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
+import fs from 'fs'
+
+import { renderFullPage, staticify, publicPath } from './utils/render'
+import configureStore from '../src/store/configureStore'
+import routes from '../src/routes'
+import rootReducer from '../src/reducers'
 
 const app = express()
 const staticPath = resolve(__dirname, '..', 'static')
 const webpackConfig = require('../webpack.config.js')({ dev: true })
 const compiler = webpack(webpackConfig)
 
+// write every request to access log.
+const accessLogStream = fs.createWriteStream(resolve(__dirname, 'access.log'), { flag: 'a' })
+app.use(morgan('combined', { stream: accessLogStream }))
+
 // serve static files.
 app.use('/static', express.static(staticPath))
+app.use('/public', express.static(publicPath))
 
 app.use(staticify.middleware)
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 if (process.env.NODE_ENV === 'development') {
   // webpack dev middleware
@@ -41,7 +54,11 @@ if (process.env.NODE_ENV === 'development') {
   }))
 }
 
-function handleRender (req, res) {
+if (!__CLIENT__) {
+  global.window = {}
+}
+
+function handleRender (req, res, next) {
   match({
     routes,
     location: req.url,
@@ -51,11 +68,9 @@ function handleRender (req, res) {
     } else if (redirectLocation) {
       res.redirect(302, `${redirectLocation.pathname}${redirectLocation.search}`)
     } else if (renderProps) {
+      const preloadedState = {}
 
-      const initialState = {}
-
-      const store = configureStore(rootReducer, initialState)
-
+      const store = configureStore(rootReducer, preloadedState)
       // route is found, prepare html string...
       const html = renderToString(
         <Provider store={store}>
@@ -69,7 +84,8 @@ function handleRender (req, res) {
       // render full page along with html and redux store
       res.send(renderFullPage(html, finalizedState))
     }
-    // route is not found, send 404 not found page.
+    // pass on to the next route
+    next()
   })
 }
 

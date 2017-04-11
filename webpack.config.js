@@ -1,16 +1,18 @@
 const webpack = require('webpack')
 const { resolve } = require('path')
-const validator = require('webpack-validator')
-const packages = require('./package.json')
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-module.exports = env => {
-  const add = (env, plugin) => env && plugin || undefined
-  const ifDev = plugin => add(env.dev, plugin)
-  const ifProd = plugin => add(env.prod, plugin)
+module.exports = () => {
+  const isProd = process.env.NODE_ENV === 'production'
+  const isDev = process.env.NODE_ENV === 'development'
+
+  const ifDev = plugin => (isDev && plugin) || undefined
+  const ifProd = plugin => (isProd && plugin) || undefined
+
   const removeEmpty = plugins => (plugins.filter(i => !!i))
+
   return {
-    devtool: env.prod ? 'source-map' : 'eval-source-map',
+    devtool: isProd ? 'source-map' : 'eval-source-map',
     entry: removeEmpty([
       resolve(__dirname, 'src/index.js'),
       ifDev('webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000'),
@@ -20,7 +22,7 @@ module.exports = env => {
       publicPath: '/',
       filename: '[name].js',
     },
-    bail: env.prod,
+    bail: isProd,
     resolve: {
       extensions: ['', '.js', '.jsx'],
     },
@@ -46,15 +48,15 @@ module.exports = env => {
           loader: 'json-loader',
         },
         {
-          test: /\.(jpe?g|png)/,
+          test: /\.(jpe?g|png|gif)$/i,
           loaders: [
-            'file?hash=sha512&digest=hex&name=[hash].[ext]',
-            'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+            'file?name=[hash].[ext]',
+            'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
           ],
         },
         {
-          test: /\.svg/,
-          loader: 'svg-url-loader?limit=25000',
+          test: /\.svg$/,
+          loader: 'file?name=[hash].[ext]',
         },
         {
           test: /\.woff(\?\.*)?$/,
@@ -86,13 +88,13 @@ module.exports = env => {
           loader: ExtractTextPlugin.extract({
             fallbackLoader: 'style',
             loader: 'css?module&importLoaders=1&' +
-            'localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+            'localIdentName=_[hash:base64:5]!postcss-loader',
           }),
         }),
         ifDev({
           test: /\.css$/,
           loader: 'style!css?modules&importLoaders=1&' +
-          'localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+          'localIdentName=[name]__[local]__[hash:base64:5]!postcss-loader',
         }),
       ]),
     },
@@ -105,10 +107,12 @@ module.exports = env => {
         },
       })),
       new webpack.DefinePlugin({
-        '__CLIENT__': true,
+        __DEVELOPMENT__: isDev,
+        __PRODUCTION__: isProd,
+        __CLIENT__: true,
       }),
       ifProd(
-          new webpack.DefinePlugin({
+        new webpack.DefinePlugin({
           'process.env.NODE_ENV': '"production"',
         })
       ),
@@ -117,7 +121,7 @@ module.exports = env => {
           'process.env.NODE_ENV': '"development"',
         })
       ),
-      ifProd(new ExtractTextPlugin('[name].css')),
+      ifProd(new ExtractTextPlugin('bundle.css')),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
         filename: 'vendor.js',

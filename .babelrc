@@ -1,8 +1,27 @@
 {
-  "presets": ["es2015-webpack", "stage-0", "react"],
+  "presets": [
+    ["es2015", { "modules": false }],
+    "stage-0",
+    "react"
+  ],
   "env": {
   	"development": {
       "presets": ["es2015", "stage-0", "react"]
+    },
+    "production": {
+      "plugins": ["transform-react-remove-prop-types"]
+    },
+    "test": {
+      "presets": ["es2015", "stage-0", "react"]
     }
-  }
+  },
+  "plugins": [
+    [
+      "transform-runtime",
+      {
+        "polyfill": false,
+        "regenerator": true
+      }
+    ]
+  ]
 }
