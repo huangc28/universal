@@ -8,19 +8,15 @@ Implementing a server side rendering app with **React** + **Redux** + **Express*
 
 2. serve *js bundle* as public, leave the rendering to frontend.
 
-### backend + frontend
-
-spins up both backend server and frontend server.
-
 ### install
 
-`npm install`
+`yarn install`
 
-and
+### Development
 
 `npm run dev`
 
-### production build
+### Production build
 
 `npm run build:prod`
 
@@ -76,7 +72,7 @@ and
 
   - [] React testing framework **jsdom** [link](https://github.com/tmpvar/jsdom).
 
-[x] change framework from **KOA** to **express**.
+[x] change framework from **KOA** to **Express**.
 
 [x] split configuration depend on environment. use *webpack merge*.
 

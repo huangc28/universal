@@ -1,5 +1,8 @@
 module.exports = {
   plugins: [
-    require('autoprefixer'), // eslint-disable-line global-require
+    require('autoprefixer')({
+      browsers: ['> 1%'],
+    }),
+    require('postcss-flexibility')(),
   ],
 }

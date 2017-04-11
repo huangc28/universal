@@ -24,44 +24,52 @@ module.exports = () => {
     },
     bail: isProd,
     resolve: {
-      extensions: ['', '.js', '.jsx'],
+      extensions: ['.js', '.jsx'],
     },
     node: {
       fs: 'empty',
     },
     module: {
-      preLoaders: [
+      rules: removeEmpty([
         {
           test: /\.(js|jsx)$/,
-          loaders: ['eslint'],
+          enforce: 'pre',
+          loader: 'eslint-loader',
           include: resolve(__dirname, 'universal'),
         },
-      ],
-      loaders: removeEmpty([
         {
           test: /\.(js|jsx)$/,
-          exclude: /node_modules/,
           loader: 'babel-loader',
-        },
-        {
-          test: /\.json$/,
-          loader: 'json-loader',
+          exclude: /node_modules/,
         },
         {
           test: /\.(jpe?g|png|gif)$/i,
-          loaders: [
-            'file?name=[hash].[ext]',
-            'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
+          use: [
+            {
+              loader: 'file-loader',
+              options: { name: '[hash].[ext]' },
+            },
+            {
+              loader: 'image-webpack-loader',
+              options: {
+                bypassOnDebug: true,
+                optimizationLevel: 7,
+                interlaced: false,
+              },
+            },
           ],
         },
         {
           test: /\.svg$/,
-          loader: 'file?name=[hash].[ext]',
+          loader: 'file-loader',
+          options: {
+            name: '[hash].[ext]',
+          },
         },
         {
           test: /\.woff(\?\.*)?$/,
-          loader: 'url',
-          query: {
+          loader: 'url-loader',
+          options: {
             limit: 50000,
             mimetype: 'application/font-woff',
             name: './font/[hash].[ext]',
@@ -69,8 +77,8 @@ module.exports = () => {
         },
         {
           test: /\.woff2(\?\.*)?$/,
-          loader: 'url',
-          query: {
+          loader: 'url-loader',
+          options: {
             limit: 50000,
             mimetype: 'application/font-woff2',
             name: './font/[hash].[ext]',
@@ -78,29 +86,50 @@ module.exports = () => {
         },
         {
           test: /\.ttf$|\.eot$/,
-          loader: 'file',
-          query: {
+          loader: 'file-loader',
+          options: {
             name: 'font/[hash].[ext]',
           },
         },
         ifProd({
           test: /\.css$/,
           loader: ExtractTextPlugin.extract({
-            fallbackLoader: 'style',
-            loader: 'css?module&importLoaders=1&' +
-            'localIdentName=_[hash:base64:5]!postcss-loader',
+            fallback: 'style-loader',
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  module: true,
+                  importLoaders: 1,
+                  localIdentName: '_[hash:base64:5]',
+                },
+              },
+              'postcss-loader',
+            ],
           }),
         }),
         ifDev({
           test: /\.css$/,
-          loader: 'style!css?modules&importLoaders=1&' +
-          'localIdentName=[name]__[local]__[hash:base64:5]!postcss-loader',
+          use: [
+            {
+              loader: 'style-loader',
+            },
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                importLoaders: 1,
+                localIdentName: '[name]__[local]__[hash:base64:5]',
+              },
+            },
+            'postcss-loader',
+          ],
         }),
       ]),
     },
     plugins: removeEmpty([
-      ifProd(new webpack.optimize.DedupePlugin()),
       ifProd(new webpack.optimize.UglifyJsPlugin({
+        sourceMap: true,
         compress: {
           screw_ie8: true,
           warnings: false,
@@ -121,7 +150,10 @@ module.exports = () => {
           'process.env.NODE_ENV': '"development"',
         })
       ),
-      ifProd(new ExtractTextPlugin('bundle.css')),
+      ifProd(new ExtractTextPlugin({
+        filename: 'bundle.css',
+        allChunks: true,
+      })),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
         filename: 'vendor.js',
@@ -131,11 +163,10 @@ module.exports = () => {
           module.resource.indexOf('.css') === -1
         ),
       }),
-      new webpack.optimize.OccurrenceOrderPlugin(),
       ifDev(new webpack.HotModuleReplacementPlugin({
         multiStep: true,
       })),
-      ifDev(new webpack.NoErrorsPlugin()),
+      ifDev(new webpack.NoEmitOnErrorsPlugin()),
     ]),
   }
 }
