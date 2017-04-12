@@ -7,22 +7,32 @@ import rootSaga from '../sagas'
  * also applying enhanced middlewares onto stores.
  *
  * @param {function} rootReducer
- * @param {object} finalizedState
+ * @param {object} preloadedState
  */
-export default function configureStore (rootReducer, finalizedState) {
-
+export default function configureStore (rootReducer, preloadedState) {
   const sagaMiddleware = createSagaMiddleware()
+  const composeEnhancers = (
+    !global.__PRODUCTION__ &&
+    typeof window === 'object' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  ) || compose
 
   const store = createStore(
     rootReducer,
-    finalizedState,
-    compose(
-      applyMiddleware(sagaMiddleware),
-      global.__CLIENT__ && window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
+    preloadedState,
+    composeEnhancers(
+      applyMiddleware(sagaMiddleware)
     )
   )
 
   sagaMiddleware.run(rootSaga)
+
+  if (module.hot) {
+    module.hot.accept('../reducers', () => {
+      const nextRootReducer = require('../reducers').default // eslint-disable-line global-require
+      store.replaceReducer(nextRootReducer)
+    })
+  }
 
   return store
 }

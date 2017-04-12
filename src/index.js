@@ -11,12 +11,6 @@ const initialState = window.__INITIAL_STATE__
 
 const store = configureStore(rootReducer, initialState)
 
-// check if its hmr.
-if (module.hot) {
-  // accept itself.
-  module.hot.accept()
-}
-
 const App = () => (
   <Provider store={store}>
     <Router routes={routes} history={browserHistory} />
