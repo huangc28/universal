@@ -30,13 +30,7 @@ Implementing a server side rendering app with **React** + **Redux** + **Express*
 
   - [x] babel stage-0, this [link](http://babeljs.io/docs/plugins/preset-stage-0/) demonstrates what **stage-0** serves.
 
-[x] add koa router.
-
-  - [x] [koa-router](npm install koa-router) repo.
-
-  - [x] [koa-cors](https://github.com/evert0n/koa-cors) repo.
-
-[x] ORM package.
+[] ORM package.
 
   - [x] Compare **Sequelize** with **Bookshelf**.
 
@@ -50,7 +44,7 @@ Implementing a server side rendering app with **React** + **Redux** + **Express*
 
   - [x] configure webpack configuration.
 
-  - [] add script `npm run start:dev` to start **webpack-dev-server** for front end.
+  - [x] add script `npm run start:dev` to start **webpack-dev-server** for front end.
 
 [x] add **react router**.
 
@@ -61,7 +55,7 @@ Implementing a server side rendering app with **React** + **Redux** + **Express*
   - [x] install **react-redux**
 
   - [x] install **react-thunk**
-
+[x] add **redux-saga**
 [x] add **mocha** test framework.
 
   - [x] install **mocha**.
@@ -76,7 +70,7 @@ Implementing a server side rendering app with **React** + **Redux** + **Express*
 
 [x] split configuration depend on environment. use *webpack merge*.
 
-[x] add *hot module reload*.
+[x] add **hot module reload**.
 
 [x] add **react hot loader** for development environment.
 
@@ -84,7 +78,9 @@ Implementing a server side rendering app with **React** + **Redux** + **Express*
 
 [x] polyfill promises for webpack2.
 
-[x] use `ava` for test framework.
+[x] ~~use `ava` for test framework~~.
+
+[x] use `jest` for test framework
 
 [x] add `eslint`
 
@@ -94,10 +90,11 @@ Implementing a server side rendering app with **React** + **Redux** + **Express*
 
 [] add *karma* + *enzyme* for testing react components.
 
+[x] upgrade to webpack 2 alone with `webpack.config.js` and all relative dependencies.
 
 ## Probably best way to shrink the bundle size at its max using commonChunksPlugin!
 
-I read through [surviveJS](http://survivejs.com/) for extracting *vendor.js*. The article suggest to put all the *frontend modules* under `dependencies` such as react, redux, redux-saga...etc in `package.json` and bundles them up using *commonChunksPlugin*:
+I read through [surviveJS](http://survivejs.com/) for extracting **vendor.js**. The article suggest to put all the **frontend modules** under `dependencies` such as react, redux, redux-saga...etc in `package.json` and bundles them up using **commonChunksPlugin**:
 
 ```
 plugins: [
@@ -108,7 +105,7 @@ plugins: [
 ]
 ```
 
-However, this reveals a problem that it does not extract out the common chunks among those *frontend modules*. Thus, they might use common chunks that don't get extract out. This results in bigger bundle size. To avoid this, we can use follow settings:
+However, this reveals a problem that it does not extract out the common chunks among those **frontend modules**. Thus, they might use common chunks that don't get extract out. This results in bigger bundle size. To avoid this, we can use follow settings:
 
 ```
 entry: [
@@ -215,7 +212,7 @@ historyApiFallback: true
 
 ## Not hot reloading stateless function component
 
-*webpack-dev-middleware* does not support hot reloading stateless function components.
+**webpack-dev-middleware** does not support hot reloading stateless function components.
 when your topmost component is written stateless function, for example:
 
 ```js
@@ -229,7 +226,7 @@ when your topmost component is written stateless function, for example:
 export default const Home = () => (...)
 ```
 
-The above component will not be hot reloaded by *webpack-dev-middleware*.
+The above component will not be hot reloaded by **webpack-dev-middleware**.
 to resolve this issue, we need to place the following snippet in the parent component.
 
 ```js
@@ -242,6 +239,20 @@ if (module.hot) {
 please refer to [this](https://webpack.github.io/docs/hot-module-replacement.html).
 
 [gaeeron's solution](https://github.com/gaearon/babel-plugin-react-transform/issues/57)
+
+## Problems when trying to upgrade to webpack 2
+
+Majority of the details for upgrading from v1 to v2 can be found [here](https://webpack.js.org/guides/migrating)
+
+### loader-utils parseQuery deprecation
+
+This issue can be found [here](https://github.com/webpack/loader-utils/issues/56).
+The dependencies that are causing this warning are:
+
+1. `babel-loader`
+2. `image-webpack-loader`
+3. `babel-plugin-transform-runtime`
+4. `babel-runtime`
 
 ## References
 
