@@ -1,24 +1,28 @@
 ## Purpose
 
-Implementing a server side rendering app with **React** + **Redux** + **Express** + **Webpack**.
+Implementing a server side rendering app with **React** + **Redux** + **Redux-saga** + **Express** + **Webpack**.
 
 ## Server Side Rendering
 
-1. server is responsible for rendering initial html
+1. server is responsible for rendering initial html.
 
-2. serve *js bundle* as public, leave the rendering to frontend.
+2. serve **js bundle** as public, leave the rendering to frontend.
 
-### install
+### Install
 
 `yarn install`
 
 ### Development
 
-`npm run dev`
+`npm run dev`. request `localhost:3005` in your browser.
 
 ### Production build
 
 `npm run build:prod`
+
+### Host production script on local
+
+`npm run start:local`. request `localhost:3005` in your browser.
 
 ## Progress
 
