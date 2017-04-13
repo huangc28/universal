@@ -26,6 +26,8 @@ require('css-modules-require-hook')({
 
 require('asset-require-hook')({
   extensions: ['jpeg', 'jpg', 'png', 'svg'],
+  hash: 'sha512',
+  digest: 'hex',
   name: '/[hash].[ext]',
 })
 

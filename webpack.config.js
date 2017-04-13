@@ -45,10 +45,7 @@ module.exports = () => {
         {
           test: /\.(jpe?g|png|gif)$/i,
           use: [
-            {
-              loader: 'file-loader',
-              options: { name: '[hash].[ext]' },
-            },
+            'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
             {
               loader: 'image-webpack-loader',
               options: {
@@ -72,10 +69,7 @@ module.exports = () => {
         },
         {
           test: /\.svg$/,
-          loader: 'file-loader',
-          options: {
-            name: '[hash].[ext]',
-          },
+          loader: 'file-loader?name=[hash].[ext]',
         },
         {
           test: /\.woff(\?\.*)?$/,
