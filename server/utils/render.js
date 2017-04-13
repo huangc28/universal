@@ -15,6 +15,7 @@ export function renderFullPage (html, initialState) {
     <html>
       <head>
         <title>Universal App</title>
+        <script src="https://use.fontawesome.com/47e3b099c4.js"></script>
         ${cssBundle}
       </head>
       <body>
