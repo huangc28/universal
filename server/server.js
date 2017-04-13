@@ -20,7 +20,6 @@ import routes from '../src/routes'
 import rootReducer from '../src/reducers'
 
 const app = express()
-const staticPath = resolve(__dirname, '..', 'static')
 const webpackConfig = require('../webpack.config.js')({ dev: true })
 const compiler = webpack(webpackConfig)
 
@@ -29,8 +28,7 @@ const accessLogStream = fs.createWriteStream(resolve(__dirname, 'access.log'), {
 app.use(morgan('combined', { stream: accessLogStream }))
 
 // serve static files.
-app.use('/static', express.static(staticPath))
-app.use('/public', express.static(publicPath))
+app.use('/', express.static(publicPath))
 
 app.use(staticify.middleware)
 app.use(bodyParser.json())

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Title from '../../components/Title'
-import TestJPEG from './images/test.jpeg'
+import LogoSVG from './images/logo.svg'
 import styles from './Home.css'
 
 class Home extends Component {
@@ -18,7 +18,7 @@ class Home extends Component {
 				<Title title="this is a custom title" />
 				setdefsssesdfeesdfDESDF
 	    	{this.state.text}
-				<img src={TestJPEG} />
+				<img src={LogoSVG} />
 	  	</div>
 		)
 	}
