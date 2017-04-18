@@ -1,3 +1,5 @@
+/* global __CLIENT__ */
+
 import React from 'react'
 import { Router, browserHistory } from 'react-router'
 import { Provider } from 'react-redux'
@@ -11,13 +13,21 @@ const initialState = window.__INITIAL_STATE__
 
 const store = configureStore(rootReducer, initialState)
 
-const App = () => (
-  <Provider store={store}>
-    <Router routes={routes} history={browserHistory} />
-  </Provider>
-)
+if (module.hot) {
+  module.hot.accept()
+}
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('app')
-)
+if (__CLIENT__) {
+  const App = () => (
+    <Provider store={store}>
+      <Router routes={routes} history={browserHistory} />
+    </Provider>
+  )
+
+  ReactDOM.render(
+    <App />,
+    document.getElementById('app')
+  )
+}
+
+
