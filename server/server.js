@@ -49,6 +49,11 @@ if (process.env.NODE_ENV === 'development') {
     log: console.log, // eslint-disable-line no-console
     path: '/__webpack_hmr',
     heartbeat: 10 * 1000,
+    headers: {
+      // @issue webpack-dev-middleware note on v1.10.2
+      // https://github.com/webpack/webpack-dev-middleware/releases
+      'Access-Control-Allow-Origin': 'http://localhost:3005',
+    },
   }))
 }
 
