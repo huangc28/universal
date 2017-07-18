@@ -3,10 +3,10 @@ const path = require('path')
 const config = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '.babelrc'), 'utf-8'))
 
 /**
- * Use "es2015" on the server side.
+ * Use "env" on the server side.
  */
 config.presets = config.presets.map(preset => {
-  if (Array.isArray(preset) && preset[0] === 'es2015') {
+  if (Array.isArray(preset) && preset[0] === 'env') {
     preset.splice(1, 1)
 
     return preset
