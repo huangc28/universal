@@ -87,7 +87,7 @@ function handleRender (req, res, next) {
       // render full page along with html and redux store
       res.send(renderFullPage(html, finalizedState))
     }
-    // pass on to the next route
+    // pass on to the next middleware
     next()
   })
 }
