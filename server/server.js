@@ -7,16 +7,16 @@ import { resolve } from 'path'
 import React from 'react'
 import { Provider } from 'react-redux'
 import { renderToString } from 'react-dom/server'
-import { match, RouterContext } from 'react-router'
+import { StaticRouter } from 'react-router-dom'
 import morgan from 'morgan'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import fs from 'fs'
 
+import App from '../src/containers/App'
 import { renderFullPage, staticify, publicPath } from './utils/render'
 import configureStore from '../src/store/configureStore'
-import routes from '../src/routes'
 import rootReducer from '../src/reducers'
 
 const app = express()
@@ -62,34 +62,29 @@ if (!__CLIENT__) {
 }
 
 function handleRender (req, res, next) {
-  match({
-    routes,
-    location: req.url,
-  }, (error, redirectLocation, renderProps) => {
-    if (error) {
-      res.status(500).send(error.message)
-    } else if (redirectLocation) {
-      res.redirect(302, `${redirectLocation.pathname}${redirectLocation.search}`)
-    } else if (renderProps) {
-      const preloadedState = {}
+  const preloadedState = {}
 
-      const store = configureStore(rootReducer, preloadedState)
-      // route is found, prepare html string...
-      const html = renderToString(
-        <Provider store={store}>
-          <RouterContext {...renderProps} />
-        </Provider>
-      )
+  const store = configureStore(rootReducer, preloadedState)
 
-      // get the initial state from redux store
-      const finalizedState = store.getState()
+  const context = {}
 
-      // render full page along with html and redux store
-      res.send(renderFullPage(html, finalizedState))
-    }
-    // pass on to the next middleware
-    next()
-  })
+  const html = renderToString(
+    <StaticRouter
+      location={req.url}
+      context={context}
+    >
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </StaticRouter>
+  )
+
+  // get the initial state from redux store
+  const finalizedState = store.getState()
+
+  res.send(renderFullPage(html, finalizedState))
+
+  next()
 }
 
 app.use(handleRender)

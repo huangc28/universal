@@ -1,8 +1,8 @@
-import { fork } from 'redux-saga/effects'
+import { all, call } from 'redux-saga/effects'
 import helloWorldSaga from './helloWorld'
 
 export default function * root() {
-  yield [
-    fork(helloWorldSaga),
-  ]
+  yield all([
+    call(helloWorldSaga),
+  ])
 }
