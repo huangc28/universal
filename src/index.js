@@ -9,12 +9,14 @@ import App from './containers/App'
 import configureStore from './store/configureStore'
 import rootReducer from './reducers'
 
+
+
 if (module.hot) {
   module.hot.accept()
 }
 
 if (__CLIENT__) {
-  const initialState = window.__INITIAL_STATE__
+  const initialState = window.__INITIAL_STATE__ || {}
 
   const store = configureStore(rootReducer, initialState)
 

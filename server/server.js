@@ -74,17 +74,22 @@ function handleRender (req, res, next) {
       context={context}
     >
       <Provider store={store}>
-        <App />
+        <App store={store} />
       </Provider>
     </StaticRouter>
   )
 
-  // get the initial state from redux store
-  const finalizedState = store.getState()
+  // if client renders redirect or not found (301, 302, or 404), server gets these information by context
+  if (context.url) {
+    const { status, url } = context
 
-  res.send(renderFullPage(html, finalizedState))
-
-  next()
+    res.redirect(status, url)
+  } else {
+    // get the initial state from redux store
+    const finalizedState = store.getState()
+    res.send(renderFullPage(html, finalizedState))
+  }
+  res.end()
 }
 
 app.use(handleRender)
